@@ -1,0 +1,36 @@
+.card-info{
+    text-align: center;
+    padding:8px;
+    margin:8px;
+}
+.card-upper-text{
+    font-size: 20px;
+    width: 100%;
+    color: #ffffff;
+    font-weight: bold;
+}
+.card-lower-text{
+    font-size: 36px;
+    width: 100%;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.card-ongoing{
+    background-color: #03A9F4;
+    text-align: center;
+    padding:8px;
+    margin:8px;
+}
+
+.card-done{
+    background-color:#00695C;
+    text-align: center;
+    padding:8px;
+    margin:8px;
+}
+.card-icon{
+  color: #ffffff;
+  text-align: center;
+  margin-top: 13px;
+}
