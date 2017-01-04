@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+body .ui-datatable-header{
+     background-color: #0277BD !important;
+      color: #ffffff !important;
+      border: 1px solid #0277BD !important;
+}

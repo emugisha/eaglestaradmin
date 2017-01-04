@@ -1,9 +1,17 @@
-<div class="container-fluid">
+<div class="container">
+    <div class="ui-g">
+            <div class="ui-g-12" class="welcome-card">
+                <span><i class="fa fa-suitcase fa-3x" aria-hidden="true" ></i></span>
+                <span>Welcome to Eagle Star Admin Panel</span>
+            </div>
+    </div>
+    <br><br><br>
 <div class="ui-g">
-    <div class="ui-g-3 card-info">
+    
+    <div class="ui-g-4 card-info">
         <div class="ui-g">
             <div class="ui-g-4" style="background-color: #2E7D32">
-                <i class="fa fa-envelope fa-3x card-icon" aria-hidden="true" ></i>
+                <i class="fa fa-suitcase fa-3x card-icon" aria-hidden="true" ></i>
             </div>
             <div class="ui-g-8" style="background-color: #4CAF50">
                 <span class="card-upper-text">New Bookings</span><br>
@@ -13,15 +21,61 @@
         </div> 
      </div>
 
-     <div class="ui-g-3 card-ongoing">
-        <span class="card-upper-text">Ongoing Bookings</span><br>
-        <span class="card-lower-text">3 </span>
+     <div class="ui-g-4 card-ongoing">
+        <div class="ui-g">
+            <div class="ui-g-4" style="background-color: #0277BD">
+                <i class="fa fa-paper-plane-o fa-3x card-icon" aria-hidden="true" ></i>
+            </div>
+            <div class="ui-g-8" style="background-color: #03A9F4">
+                <span class="card-upper-text">Ongoing Bookings</span><br>
+                <span class="card-lower-text">3 </span>
+            </div>
+            
+        </div>
      </div>
-     <div class="ui-g-3 card-done">
-        <span class="card-upper-text">Done Bookings</span><br>
-        <span class="card-lower-text">3 </span>
+     <div class="ui-g-4 card-done">
+        <div class="ui-g">
+            <div class="ui-g-4" style="background-color: #00695C">
+                <i class="fa fa-check-circle fa-3x card-icon" aria-hidden="true"></i>
+            </div>
+            <div class="ui-g-8" style="background-color: #009688">
+                <span class="card-upper-text">Done Bookings</span><br>
+                <span class="card-lower-text">3 </span>
+            </div>
+            
+        </div>
      </div>
 </div>
 </div>
+<br><br>
+<div class="container">
+<!--Tables-->
+<p-dataTable [value]="newBooking" [rows]="10" [paginator]="true">
+    <header >New Bookings</header>
+    <p-column field="name" header="Full Name"></p-column>
+    <p-column field="city" header="City"></p-column>
+    <p-column field="zipCode" header="Zip Code"></p-column>
+    <p-column field="phone" header="Phone"></p-column>
+    <p-column field="availability" header="Avilability"></p-column>
+</p-dataTable>
 
-<!--    background-color: #0277BD and #00695C-->
+<hr>
+<p-dataTable [value]="newBooking" [rows]="10" [paginator]="true">
+    <header [style]="{'background-color': '#3F51B5'}">Ongoing Bookings</header>
+    <p-column field="name" header="Full Name"></p-column>
+    <p-column field="city" header="City"></p-column>
+    <p-column field="zipCode" header="Zip Code"></p-column>
+    <p-column field="phone" header="Phone"></p-column>
+    <p-column field="availability" header="Avilability"></p-column>
+</p-dataTable>
+
+<hr>
+<p-dataTable [value]="newBooking" [rows]="10" [paginator]="true">
+    <header [style]="{'background-color': '#3F51B5'}">Completed Bookings</header>
+    <p-column field="name" header="Full Name"></p-column>
+    <p-column field="city" header="City"></p-column>
+    <p-column field="zipCode" header="Zip Code"></p-column>
+    <p-column field="phone" header="Phone"></p-column>
+    <p-column field="availability" header="Avilability"></p-column>
+</p-dataTable>
+</div>
