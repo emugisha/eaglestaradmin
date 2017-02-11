@@ -34,7 +34,7 @@
             </div>
             <div class="ui-g-8" style="background-color: #009688">
                 <span class="card-upper-text">Completed</span><br>
-                <span class="card-lower-text">{{inProgressBookings.length}}</span>
+                <span class="card-lower-text">{{completedBookings.length}}</span>
             </div>
 
         </div>
@@ -53,7 +53,7 @@
     </p-column>
   <p-column header="Appliance">
     <template let-booking="rowData" pTemplate="body">
-      {{booking.appliance?.applianceType}} ( {{booking.appliance?.brand}} )
+      {{booking.appliance?.applianceType}} -{{booking.appliance?.brand |  uppercase}}
     </template>
   </p-column>
 
@@ -69,19 +69,21 @@
     </p-column>
     <p-column  header="Availability">
       <template let-booking="rowData" pTemplate="body">
-        <!--{{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}-->
+        <div *ngIf="booking.availability">
+        {{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}
+        </div>
       </template>
     </p-column>
     <p-column  header="Action">
-      <template pTemplate="body" let-i="rowIndex" >
-        <button type="button" class="btn btn-link" (click)="showMoreDetails(i)">More</button>
+      <template pTemplate="body" let-i="rowIndex" let-booking="rowData" >
+        <button type="button" class="btn btn-link" (click)="showMoreDetails(booking, '1')"> More Details</button>
       </template>
     </p-column>
 </p-dataTable>
 
 <hr>
 <p-dataTable [value]="inProgressBookings" [rows]="10" [paginator]="true">
-  <header [style]="{'background-color': '#3F51B5'}">In Progress Bookings</header>
+  <header [style]="{'background-color': '#4CAF50'}">In Progress Bookings</header>
     <p-column header="Full Name">
       <template let-col let-booking="rowData" pTemplate="body">
         {{booking.clientDetails?.firstName}} {{booking.clientDetails?.lastName}}
@@ -89,7 +91,7 @@
     </p-column>
     <p-column header="Appliance">
       <template let-booking="rowData" pTemplate="body">
-        {{booking.appliance?.applianceType}} ( {{booking.appliance?.brand}} )
+        {{booking.appliance?.applianceType}} -{{booking.appliance?.brand |  uppercase}}
       </template>
     </p-column>
 
@@ -105,12 +107,14 @@
     </p-column>
     <p-column  header="Availability">
       <template let-booking="rowData" pTemplate="body">
-        {{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}
+        <div *ngIf="booking.availability">
+          {{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}
+        </div>
       </template>
     </p-column>
     <p-column  header="Action">
-      <template pTemplate="body" let-i="rowIndex" >
-        <button type="button" class="btn btn-link" (click)="showMoreDetails(i)">More</button>
+      <template pTemplate="body" let-booking="rowData"  >
+        <button type="button" class="btn btn-link" (click)="showMoreDetails(booking, '2')">More Details</button>
       </template>
     </p-column>
 
@@ -118,7 +122,7 @@
 
 <hr>
 <p-dataTable [value]="completedBookings" [rows]="10" [paginator]="true">
-    <header [style]="{'background-color': '#3F51B5'}">Completed Bookings</header>
+    <header [style]="{'background-color': '#009688'}">Completed Bookings</header>
     <p-column header="Full Name">
       <template let-col let-booking="rowData" pTemplate="body">
         {{booking.clientDetails?.firstName}} {{booking.clientDetails?.lastName}}
@@ -126,7 +130,7 @@
     </p-column>
     <p-column header="Appliance">
       <template let-booking="rowData" pTemplate="body">
-        {{booking.appliance?.applianceType}} ( {{booking.appliance?.brand}} )
+        {{booking.appliance?.applianceType}} -{{booking.appliance?.brand | uppercase}}
       </template>
     </p-column>
 
@@ -142,56 +146,58 @@
     </p-column>
     <p-column  header="Availability">
       <template let-booking="rowData" pTemplate="body">
-        {{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}
+        <div *ngIf="booking.availability">
+          {{booking.availability?.earliestDate | date}} from {{booking?.availability?.earliestTime | date:'shortTime'}} to {{booking.availability?.latestTime | date:'shortTime'}}
+        </div>
       </template>
     </p-column>
     <p-column  header="Action">
-      <template pTemplate="body" let-i="rowIndex" >
-        <button type="button" class="btn btn-link" (click)="showMoreDetails(i)">More</button>
+      <template pTemplate="body" let-i="rowIndex" let-booking="rowData" >
+        <button type="button" class="btn btn-link" (click)="showMoreDetails(booking, '3')">More Details</button>
       </template>
     </p-column>
 
 </p-dataTable>
 
-  <p-dialog header="Details" [(visible)]="viewDetails" width="600">
+  <p-dialog header="Details" [(visible)]="viewDetails" width="800">
     <div class="panel panel-default">
       <div class="panel-body">
         <table class="table" style="font-size:16px;">
           <tbody>
           <tr >
-            <td style="border-top:0px"><span class="col-md-3">Name</span>
+            <td style="border-top:0px"><span class="col-md-5">Name</span>
               <span span class="col-md-5 text-primary">{{selectedBooking.clientDetails?.firstName}} {{selectedBooking.clientDetails?.lastName}}</span>
             </td>
           </tr>
           <tr >
-            <td style="border-top:0px"><span class="col-md-3">Appliance Type</span>
+            <td><span class="col-md-5">Appliance Type</span>
               <span span class="col-md-5 text-primary">{{selectedBooking.appliance?.applianceType}} </span>
             </td>
           </tr>
           <tr>
-            <td><span class="col-md-3">Appliance Brand</span>
+            <td><span class="col-md-5">Appliance Brand</span>
               <span span class="col-md-5 text-primary">{{selectedBooking.appliance?.brand}}</span>
             </td>
           </tr>
           <tr>
-            <td><span class="col-md-3">City</span>
+            <td><span class="col-md-5">City</span>
               <span span class="col-md-5 text-primary">{{selectedBooking.clientDetails?.city}}</span>
             </td>
           </tr>
           <tr>
-            <td><span class="col-md-3">Zip Code</span>
+            <td><span class="col-md-5">Zip Code</span>
               <span span class="col-md-5 text-primary"> {{selectedBooking.clientDetails?.zipcode}}</span>
             </td>
           </tr>
           <tr>
-            <td><span class="col-md-3">Phone Number</span>
+            <td><span class="col-md-5">Phone Number</span>
               <span span class="col-md-5 text-primary"> {{selectedBooking.clientDetails?.phone}}</span>
             </td>
           </tr>
 
           <tr>
-            <td style="border-bottom:1px"><span class="col-md-3">Availabilty</span>
-              <span span class="col-md-5 text-primary">{{selectedBooking.availability?.earliestDate | date}} from {{selectedBooking.availability?.earliestTime | date:'shortTime'}} to {{selectedBooking.availability?.latestTime | date:'shortTime'}}</span>
+            <td><span class="col-md-5">Availabilty</span>
+              <span span class="col-md-5 text-primary" *ngIf="selectedBooking.availability">{{selectedBooking.availability?.earliestDate | date}} from {{selectedBooking.availability?.earliestTime | date:'shortTime'}} to {{selectedBooking.availability?.latestTime | date:'shortTime'}}</span>
             </td>
           </tr>
           </tbody>
@@ -201,9 +207,9 @@
 
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success" (click)="acknowledge()">Acknowledge</button>
-      <button  class="btn btn-primary" (click)="markAsDone()">Mark as Done</button>
-      <button  class="btn btn-danger" (click)="delete()">Delete</button>
+      <button  *ngIf="showAcknowledge" class="btn btn-success" (click)="acknowledge(selectedBooking)">Acknowledge</button>
+      <button  *ngIf="showMarkAsDone" class="btn btn-primary" (click)="markAsDone(selectedBooking)">Mark as Done</button>
+      <button  class="btn btn-danger" (click)="delete(selectedBooking)">Delete</button>
       <button  class="btn btn-warning" (click)="close()">Close</button>
 
     </div>

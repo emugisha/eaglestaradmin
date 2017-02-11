@@ -18,10 +18,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   login(){
+    console.log(this.auth);
       this.loginService.signin(this.auth)
         .then((result)=>{
-          this.router.navigate([''])
+          console.log('loggedIn');
+          this.router.navigate(['repairs']);
       }).catch((error)=>{
+        console.log(error);
         this.loginError = "Invalid username or Password";
       });
   }

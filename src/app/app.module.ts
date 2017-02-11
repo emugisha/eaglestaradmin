@@ -16,8 +16,8 @@ import { HomeDropDownDirective } from './home/home-drop-down.directive';
 import {RepairService} from "./repairs/repair-service.service";
 
 const appRoutes : Routes = [
-  /*{path:'', component:RepairsComponent, canActivate:[RouteGuard]},*/
-  {path:'', component:RepairsComponent, canActivate:[RouteGuard]},
+  {path:'', pathMatch: 'full', redirectTo:'/repairs'},
+  {path:'repairs', component:RepairsComponent, canActivate:[RouteGuard]},
   {path:'permissions',component:PermissionsComponent, canActivate:[RouteGuard]},
   {path:'login', component:LoginComponent}
 ];

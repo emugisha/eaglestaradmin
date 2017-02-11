@@ -5,12 +5,13 @@ import {Router} from "@angular/router";
 @Injectable()
 export class LoginService {
   user:any;
-  constructor(private angularFire: AngularFire, private router:Router) { }
+  private auth;
+  constructor(private angularFire: AngularFire, private router:Router) {
+  }
 
   signin(user){
-    console.log(user);
-    return this.angularFire.auth
-        .login({email: user.email, password:user.pswd});
+    console.log('in the service');
+    return this.angularFire.auth.login({email:user.email, password:user.pswd});
   }
 
   signout(){
