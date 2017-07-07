@@ -16,6 +16,7 @@ import { HomeDropDownDirective } from './home/home-drop-down.directive';
 import {RepairService} from "./repairs/repair-service.service";
 import { ApplianceUploadComponent } from './appliance-upload/appliance-upload.component';
 import { OrdersComponent } from './orders/orders.component';
+import {ApplianceUploadService} from "./appliance-upload/appliance-upload.service";
 
 const appRoutes : Routes = [
   {path:'', pathMatch: 'full', redirectTo:'/repairs'},
@@ -60,7 +61,7 @@ const firebaseConfig = {
       method: AuthMethods.Password,
     })
   ],
-  providers: [LoginService, RouteGuard,RepairService],
+  providers: [LoginService, RouteGuard,RepairService, ApplianceUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

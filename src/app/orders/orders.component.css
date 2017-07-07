@@ -1,0 +1,41 @@
+.card-info{
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card-upper-text{
+  font-size: 20px;
+  width: 100%;
+  color: #ffffff;
+  font-weight: bold;
+}
+.card-lower-text{
+  font-size: 36px;
+  width: 100%;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.card-ongoing{
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.card-done{
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.card-icon{
+  color: #ffffff;
+  text-align: center;
+  margin-top: 13px;
+}
+
+.welcome-card{
+  font-size: 20px;
+  width: 100%;
+  color: #f9c851;
+  font-weight: bold;
+  text-align: center;
+}

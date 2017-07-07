@@ -1,27 +1,33 @@
 <div class="container">
-  <form>
+  <form (ngSubmit)="uploadItems()" #uploadForm="ngForm">
     <div class="form-group row">
       <label for="applianceName" class="col-sm-2 col-form-label">Appliance Name</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="applianceName" placeholder="Enter the appliance name">
+        <input type="text" class="form-control" id="applianceName" name="applianceName" [(ngModel)]="appliance.name" placeholder="Enter the appliance name">
       </div>
     </div>
     <div class="form-group row">
       <label for="description" class="col-sm-2 col-form-label">Description</label>
-      <div class="col-sm-10">
-        <textarea type="text" class="form-control" id="description" placeholder="Enter the appliance description"></textarea>
+      <div class="col-sm-5">
+        <textarea type="text" class="form-control" name="description" id="description" [(ngModel)]="appliance.description" placeholder="Enter the appliance description"></textarea>
       </div>
     </div>
     <div class="form-group row">
       <label for="price" class="col-sm-2 col-form-label">Price</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="price" placeholder="Enter the price">
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="price"  id="price" [(ngModel)]="appliance.price" placeholder="Enter the price">
       </div>
     </div>
     <div class="form-group row">
-      <label for="upload" class="col-sm-2 col-form-label">Choose Images</label>
-      <div class="col-sm-10">
-        <p-fileUpload name="myfile[]" customUpload="true" id='upload' accept="image/*" multiple="multiple" (uploadHandler)="getFiles($event)"></p-fileUpload>
+      <label  class="col-sm-2 col-form-label">Choose Images</label>
+      <div class="col-sm-5">
+        <p-fileUpload name="eaglestar[]"
+         multiple='true' showUploadButton='false' showCancelButton="false" (onSelect)="getFiles($event)"></p-fileUpload>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-5 col-sm-offset-5">
+        <button type="submit" class="btn btn-lg btn-primary">Upload</button>
       </div>
     </div>
   </form>
