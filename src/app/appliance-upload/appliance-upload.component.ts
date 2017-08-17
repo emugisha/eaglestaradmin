@@ -65,6 +65,7 @@ export class ApplianceUploadComponent implements OnInit {
         this.downloadUrls = [];
         this.appliance = {};
         this.isLoading = false;
+        this.filesToUpload = [];
         this.alertMsg.push({severity:'success', summary:'Success', detail:'The appliance was successfully uploaded! '});
         //this.router.navigate(['orders']);
       },error=>{

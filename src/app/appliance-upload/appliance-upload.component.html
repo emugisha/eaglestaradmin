@@ -1,9 +1,28 @@
 <div class="container" style="position:relative">
+  <br>
+  <div class="ui-g">
+    <div class="ui-g-8 card-info">
+      <div class="ui-g">
+        <div class="ui-g-4" style="background-color: #1c3254">
+          <i class="fa fa-suitcase fa-3x card-icon" aria-hidden="true" ></i>
+        </div>
+        <div class="ui-g-8" style="background-color: #2e6da4">
+          <span class="card-lower-text">Upload a New Appliance</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br/>
+<div class="container">
   <spinner-component [spinnerShow]="isLoading"></spinner-component>
   <form (ngSubmit)="uploadItems()" #uploadForm="ngForm">
     <div class="form-group row">
       <label for="applianceName" class="col-sm-2 col-form-label">Appliance Name</label>
-      <div class="col-sm-10">
+      <div class="col-sm-5">
         <input type="text" class="form-control" id="applianceName" name="applianceName" [(ngModel)]="appliance.name" placeholder="Enter the appliance name">
       </div>
     </div>
