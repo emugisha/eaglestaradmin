@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
-import {AngularFire} from "angularfire2";
-import * as firebase from 'firebase/app';
-import 'firebase/storage';
+import {ConfigService} from "../services/config.service";
 
 @Injectable()
 export class ApplianceUploadService {
 
   private storageRef;
+  private appliancesRef;
 
-  constructor(private angularFire:AngularFire) {
-    this.storageRef = firebase.storage().ref('appliances');
+  constructor(private configService:ConfigService) {
+    this.appliancesRef = this.configService.getFirebaseDatabase().ref('appliances');
+    this.storageRef = configService.getFirebaseStorage().ref('appliances');
   }
 
-   uploadAppliance(appliance){
-    return this.angularFire.database.list("appliances").push(appliance);
+   uploadAppliance(appliance, newKey){
+    return this.appliancesRef.child('/'+newKey).set(appliance);
    }
 
-   uploadImages(file,fileName){
-     return this.storageRef.child(fileName).put(file);
+   getApplianceNewKey(){
+     return this.appliancesRef.push().key;
+   }
+
+   uploadImages(file,fileName,imageName){
+     return this.storageRef.child(fileName +'/'+imageName+'.jpg').put(file);
    }
 
 }

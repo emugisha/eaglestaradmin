@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ConfigService} from "./services/config.service";
 
 
 @Component({
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+constructor(configService: ConfigService){
+  configService.initializeFirebase();
+}
 
-
-  title = 'app works!';
+  title = 'Eagle Star Repairs';
 }

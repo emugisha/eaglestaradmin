@@ -17,6 +17,9 @@ import {RepairService} from "./repairs/repair-service.service";
 import { ApplianceUploadComponent } from './appliance-upload/appliance-upload.component';
 import { OrdersComponent } from './orders/orders.component';
 import {ApplianceUploadService} from "./appliance-upload/appliance-upload.service";
+import {ConfigService} from "./services/config.service";
+import {SpinnerComponentModule} from "ng2-component-spinner/dist";
+import {GrowlModule} from "primeng/components/growl/growl";
 
 const appRoutes : Routes = [
   {path:'', pathMatch: 'full', redirectTo:'/repairs'},
@@ -56,12 +59,14 @@ const firebaseConfig = {
     DataTableModule,
     DialogModule,
     FileUploadModule,
+    SpinnerComponentModule,
+    GrowlModule,
     AngularFireModule.initializeApp(firebaseConfig,{
       provider: AuthProviders.Password,
       method: AuthMethods.Password,
     })
   ],
-  providers: [LoginService, RouteGuard,RepairService, ApplianceUploadService],
+  providers: [ConfigService,LoginService, RouteGuard,RepairService, ApplianceUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
