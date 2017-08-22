@@ -8,8 +8,8 @@
           <i class="fa fa-suitcase fa-3x card-icon" aria-hidden="true" ></i>
         </div>
         <div class="ui-g-8" style="background-color: #4CAF50">
-          <span class="card-upper-text">Placed Orders </span><br>
-          <span class="card-lower-text">{{newBookings?.length}} </span>
+          <span class="card-upper-text">Recent Orders </span><br>
+          <span class="card-lower-text">{{recentOrders?.length}} </span>
         </div>
 
       </div>
@@ -39,7 +39,48 @@
 
       </div>
     </div>
+
+
   </div>
+
+  <p-dataTable [value]="recentOrders" [rows]="10" [paginator]="true">
+    <header >Recent Orders</header>
+    <p-column header="Name">
+      <template let-col let-order="rowData" pTemplate="body">
+        {{order.userInfo?.firstName}} {{order.userInfo?.firstName}}
+      </template>
+    </p-column>
+
+    <p-column header="Address">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.address}},<br/>{{order.userInfo?.city}}, {{order.userInfo?.state}},{{order.userInfo?.zipCode}}
+      </template>
+    </p-column>
+
+    <p-column  header="Phone">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.phoneNumber}}
+      </template>
+    </p-column>
+
+    <p-column  header="Date">
+      <template let-order="rowData" pTemplate="body">
+          {{order.userInfo?.date | date}}
+      </template>
+    </p-column>
+    <p-column  header="Items">
+      <template let-order="rowData" pTemplate="body">
+        <span *ngFor="let item of order.cart">-{{item?.title}}, &nbsp;</span>
+      </template>
+    </p-column>
+    <p-column  header="Action">
+     <!-- <template pTemplate="body" let-i="rowIndex" let-booking="rowData" >
+        <button type="button" class="btn btn-link" (click)="showMoreDetails(booking, '1')"> More Details</button>
+      </template>-->
+    </p-column>
+  </p-dataTable>
+
+  <hr>
 </div>
 
 

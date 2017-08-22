@@ -20,6 +20,7 @@ import {ApplianceUploadService} from "./appliance-upload/appliance-upload.servic
 import {ConfigService} from "./services/config.service";
 import {SpinnerComponentModule} from "ng2-component-spinner/dist";
 import {GrowlModule} from "primeng/components/growl/growl";
+import {OrdersService} from "./orders/orders.service";
 
 const appRoutes : Routes = [
   {path:'', pathMatch: 'full', redirectTo:'/repairs'},
@@ -66,7 +67,7 @@ const firebaseConfig = {
       method: AuthMethods.Password,
     })
   ],
-  providers: [ConfigService,LoginService, RouteGuard,RepairService, ApplianceUploadService],
+  providers: [ConfigService,LoginService, RouteGuard,RepairService, ApplianceUploadService,OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

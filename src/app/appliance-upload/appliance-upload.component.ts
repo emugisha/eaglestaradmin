@@ -61,6 +61,10 @@ export class ApplianceUploadComponent implements OnInit {
   isUploadDone(newKey){
     if(this.downloadUrls.length == this.filesToUpload.length){
       this.appliance.imageUrls = this.downloadUrls;
+      var currentDate = new Date();
+      this.appliance.dateAdded = currentDate.getTime();
+      this.appliance.available = true;
+
       this.applianceUploadService.uploadAppliance(this.appliance,newKey ).then((data)=>{
         this.downloadUrls = [];
         this.appliance = {};

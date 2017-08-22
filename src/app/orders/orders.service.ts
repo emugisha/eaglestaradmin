@@ -1,45 +1,51 @@
 import { Injectable } from '@angular/core';
 import {AngularFire} from "angularfire2";
-
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/forkJoin';
 @Injectable()
 export class OrdersService {
 
   constructor(private angularFire:AngularFire) { }
 
-  getRecentBookings(){
-    return this.angularFire.database.list("/Bookings/NewBookings");
+  getRecentOrders(){
+    return this.angularFire.database.list("/Orders/recent");
   }
-  getInProgressBookings(){
-    return this.angularFire.database.list("/Bookings/InProgress");
+  getProcessingOrders(){
+    return this.angularFire.database.list("/Orders/processing");
   }
-  getCompletedBookings(){
-    return this.angularFire.database.list("/Bookings/Completed");
+  getCompletedOrders(){
+    return this.angularFire.database.list("/Orders/completed");
   }
 
-  removeFromNewBookings(booking){
+  getAllOrders(){
+    /*let ordersRequest = this.angularFire.database.list("/Orders/recent");
+    let processingRequest =this.angularFire.database.list("/Orders/processing");
+    let completedRequest = this.angularFire.database.list("/Orders/completed");
+
+    return Observable.forkJoin([ordersRequest,processingRequest,completedRequest]);*/
+    return this.angularFire.database.list("/Orders/recent");
+  }
+  removeFromRecentOrders(order){
     let update;
-    return this.angularFire.database.list("/Bookings/NewBookings/").remove(booking.$key);
+    return this.angularFire.database.list("/Orders/recent").remove(order.$key);
 
   }
-  removeFromInProgressBookings(booking){
+  removeFromProcessing(order){
     let update;
-    return this.angularFire.database.list("/Bookings/InProgress/").remove(booking.$key);
+    return this.angularFire.database.list("/Orders/processing").remove(order.$key);
   }
-  removeFromCompletedBookings(booking){
+  removeFromCompletedOrders(order){
     let update;
-    return this.angularFire.database.list("/Bookings/Completed/").remove(booking.$key);
+    return this.angularFire.database.list("/Orders/completed").remove(order.$key);
   }
 
-
-  moveToInProgress(booking){
-    return this.angularFire.database.list("/Bookings/InProgress").push({appliance:booking.appliance,availability:booking.availability || '',
-      clientDetails:booking.clientDetails || ''});
+  moveToProcessing(order){
+    return this.angularFire.database.list("/Orders/processing").push(order);
 
   }
 
-  moveToCompleted(booking){
-    return this.angularFire.database.list("/Bookings/Completed").push({appliance:booking.appliance,availability:booking.availability || '',
-      clientDetails:booking.clientDetails || ''});
+  moveToCompleted(order){
+    return this.angularFire.database.list("/Orders/completed").push(order);
 
   }
 }

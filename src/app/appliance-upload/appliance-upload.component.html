@@ -17,19 +17,32 @@
 
 
 <br/>
+<br/>
 <div class="container">
   <spinner-component [spinnerShow]="isLoading"></spinner-component>
   <form (ngSubmit)="uploadItems()" #uploadForm="ngForm">
     <div class="form-group row">
-      <label for="applianceName" class="col-sm-2 col-form-label">Appliance Name</label>
+      <label for="title" class="col-sm-2 col-form-label">Title</label>
       <div class="col-sm-5">
-        <input type="text" class="form-control" id="applianceName" name="applianceName" [(ngModel)]="appliance.name" placeholder="Enter the appliance name">
+        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="appliance.title" placeholder="For ex. Samsung Washer...">
       </div>
     </div>
     <div class="form-group row">
-      <label for="description" class="col-sm-2 col-form-label">Description</label>
+      <label for="brand" class="col-sm-2 col-form-label">Brand</label>
       <div class="col-sm-5">
-        <textarea type="text" class="form-control" name="description" id="description" [(ngModel)]="appliance.description" placeholder="Enter the appliance description"></textarea>
+        <input type="text" class="form-control" id="brand" name="title" [(ngModel)]="appliance.brand" placeholder="For ex. LG...">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="details" class="col-sm-2 col-form-label">Details</label>
+      <div class="col-sm-5">
+        <textarea type="text" class="form-control" name="details" id="details" [(ngModel)]="appliance.details" placeholder="For ex. Slightly used LG Dish Washer ..."></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="features" class="col-sm-2 col-form-label">Features</label>
+      <div class="col-sm-5">
+        <textarea type="text" class="form-control" name="features" id="features" [(ngModel)]="appliance.features" placeholder="For ex. Touch Screen, Six Drying options..."></textarea>
       </div>
     </div>
     <div class="form-group row">
