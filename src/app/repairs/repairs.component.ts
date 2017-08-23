@@ -106,13 +106,13 @@ export class RepairsComponent implements OnInit{
 
   }
   delete(booking){
-    if(this.selectedTable = '1'){
+    if(this.selectedTable == '1'){
       this.repairService.removeFromNewBookings(booking).then(
         (success)=> {
           this.viewDetails = false;
         });
 
-    }else if(this.selectedTable ='2'){
+    }else if(this.selectedTable =='2'){
       this.repairService.removeFromInProgressBookings(booking).then(
         (success)=> {
           this.viewDetails = false;

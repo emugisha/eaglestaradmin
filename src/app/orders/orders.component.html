@@ -22,7 +22,7 @@
         </div>
         <div class="ui-g-8" style="background-color: #03A9F4">
           <span class="card-upper-text">In Store</span><br>
-          <span class="card-lower-text">{{inProgressBookings?.length}} </span>
+          <span class="card-lower-text">{{processingOrders?.length}} </span>
         </div>
 
       </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="ui-g-8" style="background-color: #009688">
           <span class="card-upper-text">Completed</span><br>
-          <span class="card-lower-text">{{completedBookings?.length}}</span>
+          <span class="card-lower-text">{{completedOrders?.length}}</span>
         </div>
 
       </div>
@@ -42,7 +42,8 @@
 
 
   </div>
-
+  <br><br>
+  <!--Recent Orders-->
   <p-dataTable [value]="recentOrders" [rows]="10" [paginator]="true">
     <header >Recent Orders</header>
     <p-column header="Name">
@@ -74,13 +75,158 @@
       </template>
     </p-column>
     <p-column  header="Action">
-     <!-- <template pTemplate="body" let-i="rowIndex" let-booking="rowData" >
-        <button type="button" class="btn btn-link" (click)="showMoreDetails(booking, '1')"> More Details</button>
-      </template>-->
+      <template pTemplate="body" let-i="rowIndex" let-order="rowData" >
+        <button type="button" class="btn btn-link" (click)="showOrderDetails(order, 1)"> More Details</button>
+      </template>
+    </p-column>
+  </p-dataTable>
+  <br><br>
+  <!--Order that are processing-->
+  <p-dataTable [value]="processingOrders" [rows]="10" [paginator]="true">
+    <header >Orders in Progress</header>
+    <p-column header="Name">
+      <template let-col let-order="rowData" pTemplate="body">
+        {{order.userInfo?.firstName}} {{order.userInfo?.firstName}}
+      </template>
+    </p-column>
+
+    <p-column header="Address">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.address}},<br/>{{order.userInfo?.city}}, {{order.userInfo?.state}},{{order.userInfo?.zipCode}}
+      </template>
+    </p-column>
+
+    <p-column  header="Phone">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.phoneNumber}}
+      </template>
+    </p-column>
+
+    <p-column  header="Date">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.date | date}}
+      </template>
+    </p-column>
+    <p-column  header="Items">
+      <template let-order="rowData" pTemplate="body">
+        <span *ngFor="let item of order.cart">-{{item?.title}}, &nbsp;</span>
+      </template>
+    </p-column>
+    <p-column  header="Action">
+      <template pTemplate="body" let-i="rowIndex" let-order="rowData" >
+         <button type="button" class="btn btn-link" (click)="showOrderDetails(order,2)"> More Details</button>
+       </template>
     </p-column>
   </p-dataTable>
 
-  <hr>
+  <!--Completed orders-->
+  <p-dataTable [value]="completedOrders" [rows]="10" [paginator]="true">
+    <header >Completed Orders</header>
+    <p-column header="Name">
+      <template let-col let-order="rowData" pTemplate="body">
+        {{order.userInfo?.firstName}} {{order.userInfo?.firstName}}
+      </template>
+    </p-column>
+
+    <p-column header="Address">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.address}},<br/>{{order.userInfo?.city}}, {{order.userInfo?.state}},{{order.userInfo?.zipCode}}
+      </template>
+    </p-column>
+
+    <p-column  header="Phone">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.phoneNumber}}
+      </template>
+    </p-column>
+
+    <p-column  header="Date">
+      <template let-order="rowData" pTemplate="body">
+        {{order.userInfo?.date | date}}
+      </template>
+    </p-column>
+    <p-column  header="Items">
+      <template let-order="rowData" pTemplate="body">
+        <span *ngFor="let item of order.cart">-{{item?.title}}, &nbsp;</span>
+      </template>
+    </p-column>
+    <p-column  header="Action">
+      <template pTemplate="body" let-i="rowIndex" let-order="rowData" >
+         <button type="button" class="btn btn-link" (click)="showOrderDetails(order, 3)"> More Details</button>
+       </template>
+    </p-column>
+  </p-dataTable>
+
+
+  <!--Pop up-->
+  <p-dialog header="Details" [(visible)]="viewDetails" width="900">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-7">
+        <table class="table" style="font-size:16px;">
+          <tbody>
+          <tr >
+            <td style="border-top:0px"><span class="col-md-3">Client Name</span>
+              <span  class="col-md-9 text-primary">{{selectedOrder.userInfo?.firstName}} {{selectedOrder.userInfo?.lastName}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="col-md-5">Phone Number</span>
+              <span  class="col-md-5 text-primary"> {{selectedOrder.userInfo?.phoneNumber}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="col-md-5">Address</span>
+              <span  class="col-md-5 text-primary"> {{selectedOrder.userInfo?.address}},<br/>{{selectedOrder.userInfo?.city}},
+                {{selectedOrder.userInfo?.state}},{{selectedOrder.userInfo?.zipCode}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="col-md-3">Items</span>
+              <span class="col-md-9 text-primary">
+                <p *ngFor="let item of selectedOrder.cart">-{{item?.title}} ({{item?.brand}})
+                  <button  class="btn btn-small btn-success" (click)="showImages(item)">View Images</button></p>
+              </span>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+          </div>
+          <!--Image section-->
+
+            <div class="col-md-5" *ngIf="displayImages">
+              <div class="row">
+                <img [src]="imageToDisplay" width="300" height="200">
+              </div>
+              <br/>
+              <div class="row">
+                <ul  style="list-style: none;">
+                  <li *ngFor="let image of  selectedCartItem.imageUrls" class="col-md-2"
+                      style="border-style:solid;border-width: thin;border-color: #1c3254;margin-right: 5px;padding: 1px;">
+                   <div style="width:80px; height: 80px;">
+                     <a (click)="imageToDisplay = image">
+                      <img [src]="image" width="60" height="60">
+                    </a>
+                   </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+      </div>
+
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button  *ngIf="selectedOrderCategory == 1 " class="btn btn-success" (click)="acknowledgeOrder(selectedOrder)">Acknowledge</button>
+      <button  *ngIf="selectedOrderCategory == 1 || selectedOrderCategory == 2" class="btn btn-primary" (click)="markAsDone(selectedOrder)">Mark as Done</button>
+      <button  class="btn btn-danger" (click)="deleteOrder(selectedOrder)">Delete</button>
+      <button  class="btn btn-warning" (click)="close()">Close</button>
+
+    </div>
+  </p-dialog>
+  <p-growl [(value)]="alertMsg"></p-growl>
 </div>
 
 
